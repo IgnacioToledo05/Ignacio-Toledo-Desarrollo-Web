@@ -30,9 +30,9 @@ document.querySelectorAll('a[href^="#"]').forEach(enlace => {
 
 // === FORMULARIO DE CONTACTO ===
 const formulario = document.getElementById('contact-form');
-const boton = formulario.querySelector('button[type="submit"]');
+const boton = document.getElementById('btn-enviar');
 
-formulario.addEventListener('submit', function(e) {
+boton.addEventListener('click', function(e) {
   e.preventDefault();
   
   boton.textContent = 'Enviando...';

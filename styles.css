@@ -498,7 +498,18 @@ section { padding: var(--space-4xl) 0; }
 /* Responsive */
 @media (max-width: 768px) {
   body::before { background-attachment: scroll; }
-  .nav-links { display: none; }
+  
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  .nav-links a {
+    font-size: 11px;
+  }
+  
   .about-text p { text-align: left; }
   .about-content { grid-template-columns: 1fr; }
   .about-img { margin: 0 auto; }
