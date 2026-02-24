@@ -29,31 +29,70 @@ document.querySelectorAll('a[href^="#"]').forEach(enlace => {
 })();
 
 // === FORMULARIO DE CONTACTO ===
-const formulario = document.getElementById('contact-form');
 const boton = document.getElementById('btn-enviar');
+const formulario = document.getElementById('contact-form');
 
 boton.addEventListener('click', function(e) {
   e.preventDefault();
+  
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const servicio = document.getElementById('servicio').value;
+  const mensaje = document.getElementById('mensaje').value;
+  
+  // Validar nombre (mínimo 2 caracteres, solo letras y espacios)
+ if (nombre.length < 2) {
+   alert('El nombre debe tener al menos 2 caracteres.');
+   return;
+ }
+ if (!/^[a-zA-Z\s]+$/.test(nombre)) {
+   alert('El nombre solo puede contener letras y espacios.');
+   return;
+ }
+
+ // Validar email (formato válido)
+ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ if (!emailRegex.test(email)) {
+   alert('Por favor, ingresá un email válido (ej: tu@email.com).');
+   return;
+ }
+
+ // Validar que haya seleccionado servicio
+ if (!servicio) {
+   alert('Por favor, seleccioná un servicio.');
+   return;
+ }
+
+ // Validar mensaje (mínimo 10 caracteres)
+ if (mensaje.length < 10) {
+   alert('El mensaje debe tener al menos 10 caracteres.');
+   return;
+ }
+
+
   
   boton.textContent = 'Enviando...';
   boton.disabled = true;
 
   const templateParams = {
-    nombre: document.getElementById('nombre').value,
-    email: document.getElementById('email').value,
-    servicio: document.getElementById('servicio').value,
-    mensaje: document.getElementById('mensaje').value
+    nombre: nombre,
+    email: email,
+    servicio: servicio,
+    mensaje: mensaje
   };
 
-emailjs.send('service_ko0xcxe', 'template_tt50ff3', templateParams)
+  emailjs.send('service_ko0xcxe', 'template_tt50ff3', templateParams)
     .then(function(response) {
       alert('¡Mensaje enviado correctamente! Te contactaré pronto.');
       formulario.reset();
     }, function(error) {
       alert('Hubo un error. Por favor, intentá de nuevo.');
     })
+    .finally(() => {
+      boton.textContent = 'Enviar Mensaje';
+      boton.disabled = false;
+    });
 });
-
 
 // Scroll indicator
 window.addEventListener('scroll', () => {

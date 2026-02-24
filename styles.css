@@ -499,16 +499,23 @@ section { padding: var(--space-4xl) 0; }
 @media (max-width: 768px) {
   body::before { background-attachment: scroll; }
   
-  .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-  }
-  
-  .nav-links a {
-    font-size: 11px;
-  }
+  /* Código actual (muestra el menú): 
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.nav-links a {
+  font-size: 11px;
+}
+
+/* Cambiar por esto (ocultar el menú): */
+.nav-links {
+  display: none;
+}
+
   
   .about-text p { text-align: left; }
   .about-content { grid-template-columns: 1fr; }
