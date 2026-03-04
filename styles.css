@@ -239,8 +239,16 @@ body::before {
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Subtítulo descriptivo debajo del título */
@@ -382,10 +390,30 @@ section {
   background: rgba(0, 0, 0, 0.5);
 }
 
+.projects-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+}
+
+.column-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  color: var(--accent);
+  border-bottom: 2px solid var(--glass-border);
+  padding-bottom: var(--space-sm);
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-xl);
+}
+
+.column-grid {
+  grid-template-columns: 1fr;
 }
 
 .project-card {
@@ -507,16 +535,16 @@ section {
 }
 
 /* Label del textarea (posición inicial arriba) */
-.form-group textarea ~ label {
+.form-group textarea~label {
   top: 16px;
   transform: none;
 }
 
 /* Label flotante: sube al enfocar o cuando tiene contenido */
-.form-group input:focus ~ label,
-.form-group input:not(:placeholder-shown) ~ label,
-.form-group textarea:focus ~ label,
-.form-group textarea:not(:placeholder-shown) ~ label {
+.form-group input:focus~label,
+.form-group input:not(:placeholder-shown)~label,
+.form-group textarea:focus~label,
+.form-group textarea:not(:placeholder-shown)~label {
   top: -10px;
   left: 12px;
   font-size: 12px;
@@ -649,8 +677,15 @@ section {
 
 /* Animación de pulso para llamar la atención */
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3); }
-  50% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
 }
 
 /* ============================================================
@@ -737,7 +772,8 @@ section {
 
   /* Grillas: una sola columna en móvil */
   .services-grid,
-  .projects-grid {
+  .projects-grid,
+  .projects-split {
     grid-template-columns: 1fr;
   }
 }
