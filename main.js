@@ -3,11 +3,11 @@
 })();
 
 const textoTypewriter = 'Desarrollador Web';
-const elementoTypewriter = document.querySelector('.typewriter');
+let elementoTypewriter;
 let indiceCaracter = 0;
 
 function escribirCaracter() {
-  if (indiceCaracter < textoTypewriter.length) {
+  if (elementoTypewriter && indiceCaracter < textoTypewriter.length) {
     elementoTypewriter.textContent += textoTypewriter.charAt(indiceCaracter);
     indiceCaracter++;
     setTimeout(escribirCaracter, 100);
@@ -15,7 +15,11 @@ function escribirCaracter() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  escribirCaracter();
+  elementoTypewriter = document.querySelector('.typewriter');
+  if (elementoTypewriter) {
+    elementoTypewriter.textContent = ''; // Limpiar por si acaso
+    escribirCaracter();
+  }
 });
 
 const botonHamburguesa = document.getElementById('nav-toggle');
