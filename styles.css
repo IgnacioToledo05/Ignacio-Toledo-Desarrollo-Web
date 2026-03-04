@@ -251,8 +251,8 @@ body::before {
   }
 }
 
-/* Subtítulo descriptivo debajo del título */
-.hero-subtitle {
+/* Descripción debajo del título */
+.hero-description {
   font-size: 18px;
   color: var(--text-secondary);
   margin-bottom: var(--space-xl);
@@ -694,8 +694,9 @@ section {
    ============================================================ */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 /* Estado visible (aplicado por IntersectionObserver en JS) */
