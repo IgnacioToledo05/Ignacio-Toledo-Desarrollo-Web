@@ -1,12 +1,15 @@
-/* Variables */
+/* ============================================================
+   VARIABLES GLOBALES (DESIGN TOKENS)
+   Paleta de colores, tipografía y espaciado del sitio.
+   ============================================================ */
 :root {
   --bg-primary: #0a0a0a;
   --bg-secondary: #0f0f0f;
   --text-primary: #ffffff;
   --text-secondary: #a0a0a0;
   --accent: #ffffff;
-  --glass-bg: rgba(255,255,255,0.05);
-  --glass-border: rgba(255,255,255,0.1);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --font: 'Poppins', sans-serif;
   --space-sm: 8px;
   --space-md: 16px;
@@ -15,11 +18,26 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
   --space-4xl: 96px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --transition: 0.3s ease;
 }
 
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* ============================================================
+   RESET Y ESTILOS BASE
+   Normaliza márgenes y establece tipografía global.
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font);
   background: var(--bg-primary);
@@ -27,42 +45,59 @@ body {
   line-height: 1.7;
 }
 
-/* Video de fondo */
+/* ============================================================
+   VIDEO DE FONDO
+   Video fijo que cubre toda la pantalla como fondo visual.
+   ============================================================ */
 .video-fondo {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   z-index: -2;
 }
 
-/* Capa oscura sobre el video */
+/* Capa oscura semitransparente sobre el video para legibilidad */
 body::before {
   content: '';
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.5));
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
   z-index: -1;
 }
 
-/* Container */
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   Ancho máximo centrado para todo el contenido.
+   ============================================================ */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-lg);
 }
 
-/* Navegación */
+/* ============================================================
+   BARRA DE NAVEGACIÓN
+   Fija en la parte superior con efecto de vidrio esmerilado.
+   ============================================================ */
 .nav {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   z-index: 1000;
   padding: var(--space-md) var(--space-xl);
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background var(--transition);
 }
+
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -70,26 +105,93 @@ body::before {
   justify-content: space-between;
   align-items: center;
 }
+
+/* Logo del sitio */
 .nav-logo {
   font-size: 24px;
   font-weight: 700;
   color: var(--accent);
   text-decoration: none;
+  letter-spacing: 1px;
 }
+
+/* Lista de enlaces de navegación */
 .nav-links {
   display: flex;
   gap: var(--space-xl);
   list-style: none;
 }
+
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 14px;
-  transition: 0.3s;
+  font-weight: 500;
+  transition: color var(--transition);
+  position: relative;
 }
-.nav-links a:hover { color: var(--accent); }
 
-/* Hero */
+/* Efecto hover: subrayado animado */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ============================================================
+   BOTÓN HAMBURGUESA (solo visible en móvil)
+   Tres líneas que se animan al abrirse el menú.
+   ============================================================ */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Animación del icono hamburguesa → X cuando está activo */
+.nav-toggle.active .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
+   SECCIÓN HERO (PORTADA PRINCIPAL)
+   Pantalla completa de bienvenida con efecto typewriter.
+   ============================================================ */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -98,23 +200,39 @@ body::before {
   text-align: center;
   padding: var(--space-xl);
 }
-.hero-content { max-width: 800px; }
 
+.hero-content {
+  max-width: 800px;
+}
+
+/* Texto antes del título */
+.hero-pretitle {
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  font-weight: 500;
+}
+
+/* Título principal con efecto typewriter */
 .hero-title {
   font-size: clamp(40px, 8vw, 80px);
   font-weight: 700;
-  margin-bottom: 24px;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  margin-bottom: var(--space-lg);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
   min-height: 1.2em;
 }
 
-.typewriter { display: inline; }
+/* Contenedor del texto que se escribe */
+.typewriter {
+  display: inline;
+}
 
+/* Cursor parpadeante del efecto typewriter */
 .cursor {
   display: inline-block;
   width: 3px;
   height: 1em;
-  background: #fff;
+  background: var(--accent);
   margin-left: 4px;
   vertical-align: text-bottom;
   animation: blink 1s infinite;
@@ -125,6 +243,7 @@ body::before {
   51%, 100% { opacity: 0; }
 }
 
+/* Subtítulo descriptivo debajo del título */
 .hero-subtitle {
   font-size: 18px;
   color: var(--text-secondary);
@@ -132,75 +251,54 @@ body::before {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.8;
 }
 
-.hero-pretitle {
-  font-size: 18px;
-  color: #fff;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-/* Botón */
+/* ============================================================
+   BOTÓN PRINCIPAL (reutilizable)
+   Estilo oscuro con efecto hover y transición suave.
+   ============================================================ */
 .btn {
   display: inline-block;
   padding: var(--space-md) var(--space-xl);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
+  font-size: 14px;
   text-decoration: none;
-  transition: 0.3s;
+  transition: all var(--transition);
   cursor: pointer;
   border: none;
   background: #2d2d2d;
-  color: #ffffff;
+  color: var(--text-primary);
+  font-family: var(--font);
 }
+
 .btn:hover {
   background: #404040;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-/* Scroll */
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-secondary);
-  font-size: 12px;
-}
-.scroll-arrow {
-  width: 20px; height: 32px;
-  border: 2px solid var(--text-secondary);
-  border-radius: 10px;
-  position: relative;
-}
-.scroll-arrow::before {
-  content: '';
-  position: absolute;
-  top: 6px; left: 50%;
-  transform: translateX(-50%);
-  width: 4px; height: 8px;
-  background: var(--accent);
-  border-radius: 2px;
-  animation: bounce 2s infinite;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-  50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
+/* ============================================================
+   TÍTULOS DE SECCIÓN (reutilizable)
+   Título grande centrado con sombra para legibilidad.
+   ============================================================ */
+section {
+  padding: var(--space-4xl) 0;
 }
 
-/* Secciones */
-section { padding: var(--space-4xl) 0; }
 .section-title {
   font-size: clamp(28px, 4vw, 42px);
   font-weight: 700;
   text-align: center;
   margin-bottom: var(--space-2xl);
-  text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* About */
+/* ============================================================
+   SECCIÓN SOBRE MÍ
+   Layout de dos columnas: texto + imagen.
+   ============================================================ */
 .about {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -223,46 +321,63 @@ section { padding: var(--space-4xl) 0; }
   color: var(--text-secondary);
   margin-bottom: var(--space-md);
   text-align: left;
+  line-height: 1.8;
 }
 
+/* Imagen personal con bordes redondeados */
 .about-img {
   width: 100%;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Servicios */
+/* ============================================================
+   SECCIÓN SERVICIOS
+   Tarjetas con efecto glassmorphism y hover animado.
+   ============================================================ */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-xl);
 }
+
 .service-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: var(--space-xl);
   text-align: center;
-  transition: 0.3s;
+  transition: all var(--transition);
 }
+
 .service-card:hover {
   transform: translateY(-5px);
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
+
+/* Ícono de emoji grande */
 .service-icon {
   font-size: 48px;
   margin-bottom: var(--space-md);
 }
+
 .service-card h3 {
   font-size: 20px;
   margin-bottom: var(--space-sm);
 }
+
 .service-card p {
   font-size: 14px;
   color: var(--text-secondary);
+  line-height: 1.7;
 }
 
-/* Proyectos */
+/* ============================================================
+   SECCIÓN PROYECTOS
+   Grilla de tarjetas con imagen y descripción.
+   ============================================================ */
 .projects {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -276,15 +391,17 @@ section { padding: var(--space-4xl) 0; }
 .project-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: 0.3s;
+  transition: all var(--transition);
 }
 
 .project-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Contenedor de imagen del proyecto */
 .project-image {
   width: 100%;
   height: 200px;
@@ -295,8 +412,15 @@ section { padding: var(--space-4xl) 0; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
+/* Efecto zoom suave en la imagen al pasar el cursor */
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+}
+
+/* Información debajo de la imagen */
 .project-info {
   padding: var(--space-lg);
 }
@@ -304,7 +428,7 @@ section { padding: var(--space-4xl) 0; }
 .project-title {
   font-size: 20px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: var(--space-sm);
 }
 
@@ -314,42 +438,27 @@ section { padding: var(--space-4xl) 0; }
   margin-bottom: var(--space-md);
 }
 
+/* Botón dentro de la tarjeta de proyecto */
 .project-link {
   display: inline-block;
   padding: var(--space-sm) var(--space-lg);
   font-size: 14px;
 }
 
-/* Testimonios */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-xl);
-}
-.testimonial-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: var(--space-xl);
-}
-.testimonial-text {
-  font-size: 15px;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-bottom: var(--space-md);
-}
-.testimonial-author {
-  font-size: 14px;
-  font-weight: 600;
+/* ============================================================
+   SECCIÓN CONTACTO
+   Formulario centrado con inputs estilo glassmorphism.
+   ============================================================ */
+.contact {
+  background: rgba(0, 0, 0, 0.3);
 }
 
-/* Contacto */
-.contact { background: rgba(0,0,0,0.3); }
 .contact-subtitle {
   text-align: center;
   color: var(--text-secondary);
   margin-bottom: var(--space-xl);
 }
+
 .contact-form {
   max-width: 600px;
   margin: 0 auto;
@@ -357,7 +466,13 @@ section { padding: var(--space-4xl) 0; }
   flex-direction: column;
   gap: var(--space-lg);
 }
-.form-group { position: relative; }
+
+/* Grupo de campo con label flotante */
+.form-group {
+  position: relative;
+}
+
+/* Estilos compartidos para inputs, textarea y select */
 .form-group input,
 .form-group textarea,
 .form-group select {
@@ -365,17 +480,22 @@ section { padding: var(--space-4xl) 0; }
   padding: var(--space-md);
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-size: 16px;
   font-family: var(--font);
   outline: none;
+  transition: border-color var(--transition);
 }
+
+/* Borde resaltado al enfocar un campo */
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--accent);
 }
+
+/* Label flotante (posición inicial sobre el input) */
 .form-group label {
   position: absolute;
   left: 16px;
@@ -383,9 +503,16 @@ section { padding: var(--space-4xl) 0; }
   transform: translateY(-50%);
   color: var(--text-secondary);
   pointer-events: none;
-  transition: 0.3s;
+  transition: all var(--transition);
 }
-.form-group textarea ~ label { top: 16px; transform: none; }
+
+/* Label del textarea (posición inicial arriba) */
+.form-group textarea ~ label {
+  top: 16px;
+  transform: none;
+}
+
+/* Label flotante: sube al enfocar o cuando tiene contenido */
 .form-group input:focus ~ label,
 .form-group input:not(:placeholder-shown) ~ label,
 .form-group textarea:focus ~ label,
@@ -397,19 +524,27 @@ section { padding: var(--space-4xl) 0; }
   background: var(--bg-primary);
   padding: 0 4px;
 }
+
+/* Select personalizado con flecha SVG */
 .form-group select {
   cursor: pointer;
   appearance: none;
+  -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a0a0a0' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
 }
+
+/* Opciones del select con fondo oscuro */
 .form-group select option {
   background: var(--bg-primary);
   color: var(--text-primary);
 }
 
-/* Preguntas Frecuentes */
+/* ============================================================
+   SECCIÓN PREGUNTAS FRECUENTES
+   Tarjetas con preguntas y respuestas apiladas.
+   ============================================================ */
 .faq {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -423,16 +558,21 @@ section { padding: var(--space-4xl) 0; }
 }
 
 .faq-item {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
   padding: var(--space-xl);
+  transition: all var(--transition);
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .faq-question {
   font-size: 20px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: var(--space-md);
 }
 
@@ -442,6 +582,7 @@ section { padding: var(--space-4xl) 0; }
   line-height: 1.7;
 }
 
+/* Lista dentro de una respuesta (ej: beneficios del mantenimiento) */
 .faq-list {
   margin-top: var(--space-md);
   padding-left: var(--space-lg);
@@ -454,70 +595,149 @@ section { padding: var(--space-4xl) 0; }
 }
 
 .faq-list strong {
-  color: #fff;
+  color: var(--text-primary);
 }
 
-/* Footer */
+/* ============================================================
+   FOOTER
+   Pie de página simple con línea separadora.
+   ============================================================ */
 .footer {
   padding: var(--space-xl) 0;
   border-top: 1px solid var(--glass-border);
   text-align: center;
 }
+
 .footer p {
   font-size: 14px;
   color: var(--text-secondary);
 }
 
-/* WhatsApp */
+/* ============================================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   Fijo en la esquina inferior derecha con efecto pulso.
+   ============================================================ */
 .whatsapp-btn {
   position: fixed;
   bottom: 30px;
   right: 30px;
   width: 60px;
   height: 60px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.2);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: pulse 2s infinite;
+  transition: all var(--transition);
 }
+
+.whatsapp-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
 .whatsapp-btn svg {
   width: 32px;
   height: 32px;
   fill: var(--accent);
 }
+
+/* Animación de pulso para llamar la atención */
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
-  50% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
 }
 
-/* Responsive */
+/* ============================================================
+   ANIMACIONES DE ENTRADA (Scroll Reveal)
+   Los elementos aparecen suavemente al entrar en pantalla.
+   ============================================================ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Estado visible (aplicado por IntersectionObserver en JS) */
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE: DISPOSITIVOS MÓVILES (≤ 768px)
+   Adapta el layout para pantallas pequeñas.
+   ============================================================ */
 @media (max-width: 768px) {
-  body::before { background-attachment: scroll; }
-  
-  /* Código actual (muestra el menú): 
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-}
 
-.nav-links a {
-  font-size: 11px;
-}
+  /* Fondo: desactivar attachment fijo para rendimiento */
+  body::before {
+    background-attachment: scroll;
+  }
 
-/* Cambiar por esto (ocultar el menú): */
-.nav-links {
-  display: none;
-}
+  /* Mostrar botón hamburguesa en móvil */
+  .nav-toggle {
+    display: flex;
+  }
 
-  
-  .about-text p { text-align: left; }
-  .about-content { grid-template-columns: 1fr; }
-  .about-img { margin: 0 auto; }
+  /* Menú de navegación: oculto por defecto, aparece desde arriba */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: var(--space-md) 0;
+  }
+
+  /* Menú abierto: visible con animación */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Cada enlace ocupa todo el ancho en móvil */
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 16px;
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  /* Sobre Mí: una sola columna */
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-text p {
+    text-align: left;
+  }
+
+  .about-img {
+    margin: 0 auto;
+  }
+
+  /* Grillas: una sola columna en móvil */
+  .services-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
 }
