@@ -14,7 +14,9 @@ function escribirCaracter() {
   }
 }
 
-escribirCaracter();
+document.addEventListener('DOMContentLoaded', () => {
+  escribirCaracter();
+});
 
 const botonHamburguesa = document.getElementById('nav-toggle');
 const menuNavegacion = document.getElementById('nav-links');
